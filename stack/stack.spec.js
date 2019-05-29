@@ -13,7 +13,7 @@ describe('stack.js', () => {
   });
 
   test('Top item\'s Value should be 1', () => {
-    expect(s.peek().Value).toBe(1);
+    expect(s.peek().value).toBe(1);
   });
 
   test('Pop top item should return 1', () => {
@@ -31,6 +31,6 @@ describe('stack.js', () => {
   });
 
   test('Top item\'s Value should be 456', () => {
-    expect(s.peek().Value).toBe(456);
+    expect(s.peek().value).toBe(456);
   });
 });

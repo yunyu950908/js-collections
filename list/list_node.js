@@ -8,7 +8,7 @@ class ListNode {
      * @public
      * @type {*}
      */
-    this.Value = v;
+    this.value = v;
     /**
      * @type {ListNode}
      */

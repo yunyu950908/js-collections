@@ -13,13 +13,13 @@ class List {
      * @type {number}
      */
     this._len = 0;
-    this.init();
+    this._init();
   }
 
   /**
    * @private
    */
-  init() {
+  _init() {
     this._root._next = this._root;
     this._root._prev = this._root;
   }
@@ -127,7 +127,7 @@ class List {
     if (e._list === this) {
       this._remove(e);
     }
-    return e.Value;
+    return e.value;
   }
 
   /**
@@ -226,7 +226,7 @@ class List {
    */
   pushBackList(other) {
     for (let i = other.len(), e = other.front(); i > 0; i -= 1, e = e.next()) {
-      this._insertValue(e.Value, this._root._prev);
+      this._insertValue(e.value, this._root._prev);
     }
   }
 
@@ -236,7 +236,7 @@ class List {
    */
   pushFrontList(other) {
     for (let i = other.len(), e = other.back(); i > 0; i -= 1, e = e.prev()) {
-      this._insertValue(e.Value, this._root);
+      this._insertValue(e.value, this._root);
     }
   }
 }

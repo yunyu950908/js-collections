@@ -9,7 +9,7 @@ class Stack {
      * @private
      * @type {List}
      */
-    this.stack = new List();
+    this._stack = new List();
   }
 
   /**
@@ -17,7 +17,7 @@ class Stack {
    * @return {number}
    */
   len() {
-    return this.stack.len();
+    return this._stack.len();
   }
 
   /**
@@ -25,7 +25,7 @@ class Stack {
    * @param {*} v
    */
   push(v) {
-    this.stack.pushBack(v);
+    this._stack.pushBack(v);
   }
 
   /**
@@ -33,7 +33,7 @@ class Stack {
    * @return {*}
    */
   pop() {
-    return this.stack.remove(this.stack.back());
+    return this._stack.remove(this._stack.back());
   }
 
   /**
@@ -41,7 +41,7 @@ class Stack {
    * @return {ListNode}
    */
   peek() {
-    return this.stack.back();
+    return this._stack.back();
   }
 }
 
