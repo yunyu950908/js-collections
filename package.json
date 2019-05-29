@@ -6,6 +6,9 @@
   "author": "yunyu950908 <yunyu950908@gmail.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^24.8.0"
   }
