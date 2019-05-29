@@ -1,7 +1,7 @@
 const { Stack } = require('./stack');
 
 describe('stack.js', () => {
-  const s = new Stack;
+  const s = new Stack();
 
   test('Length of an empty stack should be 0', () => {
     expect(s.len()).toBe(0);
@@ -33,5 +33,4 @@ describe('stack.js', () => {
   test('Top item\'s Value should be 456', () => {
     expect(s.peek().Value).toBe(456);
   });
-
 });
