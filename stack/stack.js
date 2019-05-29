@@ -2,42 +2,46 @@ const { List } = require('../list/list');
 
 class Stack {
   /**
-   * @private
-   * @type {List}
+   * @constructor
    */
-  stack = new List();
+  constructor() {
+    /**
+     * @private
+     * @type {List}
+     */
+    this.stack = new List();
+  }
 
   /**
    * @public
    * @return {number}
    */
-  Len() {
-    return this.stack.Len();
+  len() {
+    return this.stack.len();
   }
 
   /**
    * @public
    * @param {*} v
    */
-  Push(v) {
-    this.stack.PushBack(v);
+  push(v) {
+    this.stack.pushBack(v);
   }
 
   /**
    * @public
-   * @param {*} v
    * @return {*}
    */
-  Pop(v) {
-    return this.stack.Remove(this.stack.Back());
+  pop() {
+    return this.stack.remove(this.stack.back());
   }
 
   /**
    * @public
    * @return {ListNode}
    */
-  Peek() {
-    return this.stack.Back();
+  peek() {
+    return this.stack.back();
   }
 }
 

@@ -5,5 +5,8 @@
   "repository": "git@github.com:yunyu950908/js-collections.git",
   "author": "yunyu950908 <yunyu950908@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
 }

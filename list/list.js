@@ -1,73 +1,18 @@
-class ListNode {
-  /**
-   * @type {ListNode}
-   */
-  next = null;
-
-  /**
-   * @type {ListNode}
-   */
-  prev = null;
-
-  /**
-   * @type {List}
-   */
-  list = null;
-
-  /**
-   * @public
-   * @type {*}
-   */
-  Value = null;
-
-  /**
-   * @constructor
-   * @param {*} v
-   */
-  constructor(v) {
-    this.Value = v;
-  }
-
-  /**
-   * @public
-   * @return {ListNode}
-   */
-  Next() {
-    const p = this.next;
-    if (this.list && p !== this.list.root) {
-      return p;
-    }
-    return null;
-  }
-
-  /**
-   * @public
-   * @return {ListNode}
-   */
-  Prev() {
-    const p = this.prev;
-    if (this.list && p !== this.list.root) {
-      return p;
-    }
-    return null;
-  }
-}
+const { ListNode } = require('./list_node');
 
 class List {
-  /**
-   * @type {ListNode}
-   */
-  root = new ListNode(null);
-
-  /**
-   * @type {number}
-   */
-  len = 0;
-
   /**
    * @constructor
    */
   constructor() {
+    /**
+     * @type {ListNode}
+     */
+    this._root = new ListNode(null);
+    /**
+     * @type {number}
+     */
+    this._len = 0;
     this.init();
   }
 
@@ -75,38 +20,38 @@ class List {
    * @private
    */
   init() {
-    this.root.next = this.root;
-    this.root.prev = this.root;
+    this._root._next = this._root;
+    this._root._prev = this._root;
   }
 
   /**
    * @public
    * @return {number}
    */
-  Len() {
-    return this.len;
+  len() {
+    return this._len;
   }
 
   /**
    * @public
    * @return {ListNode}
    */
-  Front() {
-    if (this.len === 0) {
+  front() {
+    if (this._len === 0) {
       return null;
     }
-    return this.root.next;
+    return this._root._next;
   }
 
   /**
    * @public
    * @return {ListNode}
    */
-  Back() {
-    if (this.len === 0) {
+  back() {
+    if (this._len === 0) {
       return null;
     }
-    return this.root.prev;
+    return this._root._prev;
   }
 
   /**
@@ -115,14 +60,14 @@ class List {
    * @param {ListNode} at
    * @return {ListNode}
    */
-  insert(e, at) {
-    const n = at.next;
-    at.next = e;
-    e.prev = at;
-    e.next = n;
-    n.prev = e;
-    e.list = this;
-    this.len++;
+  _insert(e, at) {
+    const n = at._next;
+    at._next = e;
+    e._prev = at;
+    e._next = n;
+    n._prev = e;
+    e._list = this;
+    this._len++;
     return e;
   }
 
@@ -132,8 +77,8 @@ class List {
    * @param {ListNode} at
    * @return {ListNode}
    */
-  insertValue(v, at) {
-    return this.insert(new ListNode(v), at);
+  _insertValue(v, at) {
+    return this._insert(new ListNode(v), at);
   }
 
   /**
@@ -141,13 +86,13 @@ class List {
    * @param {ListNode} e
    * @return {ListNode}
    */
-  remove(e) {
-    e.prev.next = e.next;
-    e.next.prev = e.prev;
-    e.next = null; // avoid memory leaks
-    e.prev = null; // avoid memory leaks
-    e.list = null;
-    this.len--;
+  _remove(e) {
+    e._prev._next = e._next;
+    e._next._prev = e._prev;
+    e._next = null; // avoid memory leaks
+    e._prev = null; // avoid memory leaks
+    e._list = null;
+    this._len--;
     return e;
   }
 
@@ -157,18 +102,18 @@ class List {
    * @param {ListNode} at
    * @return {ListNode}
    */
-  move(e, at) {
+  _move(e, at) {
     if (e === at) {
       return e;
     }
-    e.prev.next = e.next;
-    e.next.prev = e.prev;
+    e._prev._next = e._next;
+    e._next._prev = e._prev;
 
-    const n = at.next;
-    at.next = e;
-    e.prev = at;
-    e.next = n;
-    n.prev = e;
+    const n = at._next;
+    at._next = e;
+    e._prev = at;
+    e._next = n;
+    n._prev = e;
 
     return e;
   }
@@ -178,9 +123,9 @@ class List {
    * @param {ListNode} e
    * @return {*}
    */
-  Remove(e) {
-    if (e.list === this) {
-      this.remove(e);
+  remove(e) {
+    if (e._list === this) {
+      this._remove(e);
     }
     return e.Value;
   }
@@ -190,8 +135,8 @@ class List {
    * @param {*} v
    * @return {ListNode}
    */
-  PushFront(v) {
-    return this.insertValue(v, this.root);
+  pushFront(v) {
+    return this._insertValue(v, this._root);
   }
 
   /**
@@ -199,8 +144,8 @@ class List {
    * @param {*} v
    * @return {ListNode}
    */
-  PushBack(v) {
-    return this.insertValue(v, this.root.prev);
+  pushBack(v) {
+    return this._insertValue(v, this._root._prev);
   }
 
   /**
@@ -209,11 +154,11 @@ class List {
    * @param {ListNode} mark
    * @return {ListNode}
    */
-  InsertBefore(v, mark) {
-    if (mark.list !== this) {
+  insertBefore(v, mark) {
+    if (mark._list !== this) {
       return null;
     }
-    return this.insertValue(v, mark.prev);
+    return this._insertValue(v, mark._prev);
   }
 
   /**
@@ -222,45 +167,33 @@ class List {
    * @param {ListNode} mark
    * @return {ListNode}
    */
-  InsertAfter(v, mark) {
-    if (mark.list !== this) {
+  insertAfter(v, mark) {
+    if (mark._list !== this) {
       return null;
     }
-    return this.insertValue(v, mark);
+    return this._insertValue(v, mark);
   }
 
   /**
    * @public
    * @param {ListNode} e
    */
-  MoveToFront(e) {
-    if (e.list !== this || this.root.next === e) {
+  moveToFront(e) {
+    if (e._list !== this || this._root._next === e) {
       return;
     }
-    this.move(e, this.root);
+    this._move(e, this._root);
   }
 
   /**
    * @public
    * @param {ListNode} e
    */
-  MoveToBack(e) {
-    if (e.list !== this || this.root.prev === e) {
+  moveToBack(e) {
+    if (e._list !== this || this._root._prev === e) {
       return;
     }
-    this.move(e, this.root.prev);
-  }
-
-  /**
-   * @public
-   * @param {ListNode} e
-   * @param {ListNode} mark
-   */
-  MoveBefore(e, mark) {
-    if (e.list !== this || e === mark || mark.list !== this) {
-      return;
-    }
-    this.move(e, mark.prev);
+    this._move(e, this._root._prev);
   }
 
   /**
@@ -268,20 +201,32 @@ class List {
    * @param {ListNode} e
    * @param {ListNode} mark
    */
-  MoveAfter(e, mark) {
-    if (e.list !== this || e === mark || mark.list !== this) {
+  moveBefore(e, mark) {
+    if (e._list !== this || e === mark || mark._list !== this) {
       return;
     }
-    this.move(e, mark);
+    this._move(e, mark._prev);
+  }
+
+  /**
+   * @public
+   * @param {ListNode} e
+   * @param {ListNode} mark
+   */
+  moveAfter(e, mark) {
+    if (e._list !== this || e === mark || mark._list !== this) {
+      return;
+    }
+    this._move(e, mark);
   }
 
   /**
    * @public
    * @param {List} other
    */
-  PushBackList(other) {
-    for (let i = other.Len(), e = other.Front(); i > 0; i -= 1, e = e.Next()) {
-      this.insertValue(e.Value, this.root.prev);
+  pushBackList(other) {
+    for (let i = other.len(), e = other.front(); i > 0; i -= 1, e = e.next()) {
+      this._insertValue(e.Value, this._root._prev);
     }
   }
 
@@ -289,14 +234,13 @@ class List {
    * @public
    * @param {List} other
    */
-  PushFrontList(other) {
-    for (let i = other.Len(), e = other.Back(); i > 0; i -= 1, e = e.Prev()) {
-      this.insertValue(e.Value, this.root);
+  pushFrontList(other) {
+    for (let i = other.len(), e = other.back(); i > 0; i -= 1, e = e.prev()) {
+      this._insertValue(e.Value, this._root);
     }
   }
 }
 
 module.exports = {
   List,
-  ListNode,
 };
