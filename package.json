@@ -1,7 +1,7 @@
 {
   "name": "js-collections",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "lib",
   "repository": "git@github.com:yunyu950908/js-collections.git",
   "author": "yunyu950908 <yunyu950908@gmail.com>",
   "license": "MIT",
